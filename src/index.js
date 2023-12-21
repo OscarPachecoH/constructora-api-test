@@ -11,7 +11,7 @@ import {PORT} from './config.js'
 const app = express();
 
 app.use(cors({
-    origin: '*'
+    origin: ['*']
 })); 
 
 app.use(express.json());

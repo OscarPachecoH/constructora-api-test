@@ -2,7 +2,7 @@ import {pool} from '../db.js'
 import { encrypt, comparar } from '../helpers/encript.js'
 
 //const query = 'SELECT cliente.idCliente, cliente.nombreCliente, cliente.apellidoPCliente, cliente.apellidoMCliente, cliente.correo, usuarioscliente.contraseña, usuarioscliente.estadoUsuario, obra.idObra FROM cliente INNER JOIN usuarioscliente INNER JOIN obra WHERE cliente.correo = ? and cliente.idCliente = usuarioscliente.idCliente and obra.idCliente = cliente.idCliente'
-const query = 'SELECT cliente.idCliente, cliente.nombreCliente, cliente.apellidoPCliente, cliente.apellidoMCliente, cliente.correo, usuarioscliente.contrasenia, usuarioscliente.estadoUsuario, COUNT(obra.idObra) AS numeroobras FROM cliente INNER JOIN usuarioscliente INNER JOIN obra WHERE cliente.correo = ? and cliente.idCliente = usuarioscliente.idCliente and obra.idCliente = cliente.idCliente;'
+const query = 'SELECT cliente.idCliente, cliente.nombreCliente, cliente.apellidoPCliente, cliente.apellidoMCliente, cliente.correo, usuarioscliente.contrasenia, usuarioscliente.estadoUsuario, COUNT(obra.idObra) OVER(PARTITION BY cliente.idCliente) AS numeroobras FROM cliente INNER JOIN usuarioscliente INNER JOIN obra WHERE cliente.correo = ? and cliente.idCliente = usuarioscliente.idCliente and obra.idCliente = cliente.idCliente limit 1'
 const query2 = 'SELECT cliente.idCliente, cliente.nombreCliente, cliente.apellidoPCliente, cliente.apellidoMCliente, cliente.correo, cliente.telefono, usuarioscliente.contraseña, usuarioscliente.estadoUsuario FROM cliente INNER JOIN usuarioscliente WHERE cliente.correo = ? and cliente.telefono = ? and cliente.idCliente = usuarioscliente.idCliente;'
 const query3 = 'UPDATE usuarioscliente SET usuarioscliente.contrasenia = ? where usuarioscliente.idCliente = ?'
 

@@ -11,7 +11,8 @@ import {PORT} from './config.js'
 const app = express();
 
 app.use(cors({
-    origin: 'https://playful-sunburst-bc2a70.netlify.app'
+    origin: '*',
+    credentials: true,
 })); 
 
 app.use(express.json());

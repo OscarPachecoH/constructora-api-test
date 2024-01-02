@@ -32,7 +32,6 @@ export const cambio = async (req, res) => {
         const {antiguaContraseña, nuevaContraseña} = req.body
 
         const [row] = await pool.query('SELECT usuarioscliente.contrasenia from usuarioscliente WHERE idCliente = ?', [id])
-        //console.log(row);
         if(row.length <= 0){
             return res.status(404).json({
                 message: 'Something wrogs'
@@ -44,7 +43,6 @@ export const cambio = async (req, res) => {
         if(checkPassword){
             const passwordHash = await encrypt(nuevaContraseña)
             const [result] = await pool.query('UPDATE usuarioscliente SET contrasenia = ? WHERE idCliente = ?', [passwordHash, id])
-            //console.log(nuevaContraseña)
             if(result.affectedRows === 0) {return res.status(404).json({
                 message: 'No hubo cambios'
             })}else{
@@ -75,7 +73,7 @@ export const cambioOlvi = async (req, res) => {
             return res.status(404).json({
                 message: 'Datos incorrectos'
             })
-         }else{
+        }else{
             const passwordHash = await encrypt('12345678')
             const [rows2] = await pool.query(query3, [passwordHash, rows[0].idCliente])
             if(rows2.affectedRows === 0){

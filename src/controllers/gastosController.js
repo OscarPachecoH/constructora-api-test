@@ -1,7 +1,7 @@
 import {pool} from '../db.js'
 
 const gastosMateriales = 'SELECT entradamaterial.idEntMat, material.nombreMaterial, entradamaterial.cantEntMat, entradamaterial.precioUni FROM entradamaterial inner join material WHERE entradamaterial.idObra = ? and material.idMaterial = entradamaterial.idMaterial;'
-const gastosTramites = 'SELECT gastosTramites.idGasto, tramites.nombreTramite, gastosTramites.cantidad, gastosTramites.precio, gastosTramites.total FROM gastosTramites inner join tramites WHERE gastosTramites.idObra = ? and tramites.idTramites = gastosTramites.idTramite;'
+const gastosTramites = 'SELECT gastostramites.idGasto, tramites.nombreTramite, gastostramites.cantidad, gastostramites.precio, gastostramites.total FROM gastostramites inner join tramites WHERE gastostramites.idObra = ? and tramites.idTramites = gastostramites.idTramite'
 const gastoMaquinaria = 'SELECT gastosmaquinaria.idGasto, maquinaria.nombreMaquinaria, gastosmaquinaria.cantidad, gastosmaquinaria.total FROM gastosmaquinaria inner join maquinaria WHERE gastosmaquinaria.idObra = ? and maquinaria.idMaquinaria = gastosmaquinaria.idMaquinaria'
 const gastoAdicional = 'SELECT gastosadicionales.idGasto, adicionales.nombreAdicional, gastosadicionales.cantidad, gastosadicionales.total FROM gastosadicionales inner join adicionales WHERE gastosadicionales.idObra = ? and adicionales.idAdicionales = gastosadicionales.idAdicional'
 

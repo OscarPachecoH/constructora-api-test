@@ -1,7 +1,7 @@
 import {pool} from '../db.js'
 
 const query = 'SELECT * FROM reportes WHERE idObra = ? and fecha = ?'
-const bitacora = 'SELECT reportes.nombreIMG, reportes.comentario FROM reportes WHERE idObra = ? and fecha between ? and ?'
+const bitacora = 'SELECT reportes.nombreImg, reportes.comentario FROM reportes WHERE idObra = ? and fecha between ? and ?'
 
 export const getBitacora = async (req, res) => {
     try{
@@ -18,12 +18,8 @@ export const getBitacora = async (req, res) => {
 
         fechaI.setDate(fechaOriginal.getDate() - weekday);
         fechaF.setDate(fechaOriginal.getDate() + (5 - weekday));
-        
-        console.log('Fecha original:', fechaOriginal.toISOString().slice(0, 10));
-        console.log('Fecha inicio:', fechaI.toISOString().slice(0, 10));
-        console.log('Fecha final:', fechaF.toISOString().slice(0,10));
 
-        const [rows] = await pool.query(bitacora, [id, fechaI, fechaF])
+        const [rows] = await pool.query(bitacora, [id, fechaI.toISOString().slice(0, 10), fechaF.toISOString().slice(0,10)])
         res.json(rows)
         return req.params.fecha
     }catch(error){
